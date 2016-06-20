@@ -1,0 +1,23 @@
+App -->
+		Main (index) -->
+						PromptContainer -->
+						"
+							De PromptContainer bevat het item wat is ingevoerd.
+							Bevat de functies om de waarde van de input van Prompt op te vragen.
+							Returnt een input.
+						"
+											Prompt
+											"
+												Ontvangt een input en stuurt deze input als item door naar de PromptContainer.
+												Returnt een inputwaarde.
+											"
+						ItemContainer   -->
+						"
+							Bevat een lijst met alle items.
+							Voegt de staat toe van de PromptContainer als deze wordt geupdate.
+							Return een lijst van items.
+						"
+											Item(s)
+											"
+												Loopt door alle items heen van de lijst met items en weergeeft deze een voor een.
+											"
