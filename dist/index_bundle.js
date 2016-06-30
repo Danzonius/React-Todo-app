@@ -25961,11 +25961,6 @@
 				return _react2.default.createElement(
 					"div",
 					{ className: "container" },
-					_react2.default.createElement(
-						"h1",
-						null,
-						"React | Todo"
-					),
 					this.props.children
 				);
 			}
@@ -26020,6 +26015,10 @@
 	  storageBucket: "my-first-project-284fb.appspot.com"
 	};
 	_firebase2.default.initializeApp(config);
+	var db = [];
+	_firebase2.default.database().ref('todos/').on("child_added", function (snapshot) {
+	  db.push(snapshot.val());
+	});
 
 	var PromptContainer = function (_React$Component) {
 	  _inherits(PromptContainer, _React$Component);
@@ -26031,30 +26030,18 @@
 
 	    _this.state = {
 	      item: '',
-	      items: [],
+	      items: db,
 	      completed: []
 	    };
 
 	    _this.handleInput = _this.handleInput.bind(_this);
 	    _this.handleSubmit = _this.handleSubmit.bind(_this);
 	    _this.handleCompletion = _this.handleCompletion.bind(_this);
-	    _this.componentWillMount = _this.componentWillMount.bind(_this);
+	    // this.componentWillMount = this.componentWillMount.bind(this);
 	    return _this;
 	  }
 
 	  _createClass(PromptContainer, [{
-	    key: 'componentWillMount',
-	    value: function componentWillMount() {
-	      var itemList = [];
-	      _firebase2.default.database().ref('todos/').on("child_added", function (snapshot) {
-	        itemList.push(snapshot.val());
-	        console.log(snapshot.val());
-	      });
-	      this.setState({
-	        items: itemList
-	      });
-	    }
-	  }, {
 	    key: 'handleInput',
 	    value: function handleInput(e) {
 	      this.setState({
@@ -26097,10 +26084,24 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Prompt2.default, {
-	          onEntry: this.handleInput,
-	          onSubmit: this.handleSubmit
-	        }),
+	        _react2.default.createElement(
+	          'nav',
+	          { className: 'navigation-bar' },
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'React | ',
+	            _react2.default.createElement(
+	              'strong',
+	              null,
+	              'Todo'
+	            )
+	          ),
+	          _react2.default.createElement(_Prompt2.default, {
+	            onEntry: this.handleInput,
+	            onSubmit: this.handleSubmit
+	          })
+	        ),
 	        _react2.default.createElement(_Item2.default, {
 	          items: this.state.items,
 	          completed: this.state.completed,
@@ -26725,7 +26726,7 @@
 			_react2.default.createElement("input", {
 				className: "form-input",
 				type: "text",
-				placeholder: "What are planning to do?",
+				placeholder: "What are you planning to do?",
 				onChange: props.onEntry
 			}),
 			_react2.default.createElement(
@@ -26765,10 +26766,31 @@
 	var Item = function Item(props) {
 		return _react2.default.createElement(
 			"div",
-			null,
+			{ className: "item-container" },
+			_react2.default.createElement(
+				"ul",
+				{ className: "item-list item-list-completed" },
+				_react2.default.createElement(
+					"h2",
+					null,
+					"Completed"
+				),
+				props.completed.map(function (item, index) {
+					return _react2.default.createElement(
+						"li",
+						{ key: index, className: "list-item completed" },
+						item
+					);
+				})
+			),
 			_react2.default.createElement(
 				"ul",
 				{ className: "item-list" },
+				_react2.default.createElement(
+					"h2",
+					null,
+					"To do's"
+				),
 				props.items.map(function (item, index) {
 					return _react2.default.createElement(
 						"li",
@@ -26785,31 +26807,6 @@
 						)
 					);
 				})
-			),
-			_react2.default.createElement(
-				"p",
-				{ className: "count" },
-				"There are ",
-				props.items.length,
-				" items on your todo-list. "
-			),
-			_react2.default.createElement(
-				"ul",
-				{ className: "item-list" },
-				props.completed.map(function (item, index) {
-					return _react2.default.createElement(
-						"li",
-						{ key: index, className: "list-item completed" },
-						item
-					);
-				})
-			),
-			_react2.default.createElement(
-				"p",
-				{ className: "count" },
-				"You have completed ",
-				props.completed.length,
-				" items of your todo-list. "
 			)
 		);
 	};

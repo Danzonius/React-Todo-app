@@ -6,7 +6,7 @@ const Prompt = (props) => {
 			<input 
 				className="form-input"
 				type="text"
-				placeholder="What are planning to do?"
+				placeholder="What are you planning to do?"
 				onChange={ props.onEntry }
 			/>
 			<button
@@ -23,7 +23,5 @@ Prompt.propTypes = {
 	onSubmit: PropTypes.func.isRequired,
 	onEntry: PropTypes.func.isRequired,
 }
-
-
 
 export default Prompt;

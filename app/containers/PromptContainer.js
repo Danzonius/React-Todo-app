@@ -9,6 +9,10 @@ var config = {
   storageBucket: "my-first-project-284fb.appspot.com",
 };
 Firebase.initializeApp(config);
+var db = [];
+Firebase.database().ref('todos/').on("child_added", function(snapshot) {
+  db.push(snapshot.val());
+});
 
 import Prompt from '../components/Prompt';
 import Item from '../components/Item';
@@ -19,25 +23,14 @@ export default class PromptContainer extends React.Component {
     super(props);
     this.state = {
     	item: '',
-    	items: [],
+    	items: db,
       completed: []
     }
 
     this.handleInput = this.handleInput.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCompletion = this.handleCompletion.bind(this);
-    this.componentWillMount = this.componentWillMount.bind(this);
-  }
-
-  componentWillMount() {
-    var itemList = [];
-    Firebase.database().ref('todos/').on("child_added", function(snapshot) {
-      itemList.push(snapshot.val());
-      console.log(snapshot.val());
-    });
-    this.setState({
-      items: itemList
-    });
+    // this.componentWillMount = this.componentWillMount.bind(this);
   }
 
   handleInput(e) {
@@ -77,10 +70,13 @@ export default class PromptContainer extends React.Component {
   render() {
     return (
       <div>
-      	<Prompt 
-      		onEntry = { this.handleInput }
-      		onSubmit = { this.handleSubmit }
-      	/>
+        <nav className="navigation-bar">
+          <h1>React | <strong>Todo</strong></h1>
+          <Prompt 
+            onEntry = { this.handleInput }
+            onSubmit = { this.handleSubmit }
+          />
+        </nav>
       	<Item
       		items = { this.state.items }
           completed = { this.state.completed }

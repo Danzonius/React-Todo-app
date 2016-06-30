@@ -2,8 +2,19 @@ import React from 'react';
 
 const Item = (props) => {
 	return (
-		<div>
+		<div className="item-container">
+			<ul className="item-list item-list-completed">
+			<h2>Completed</h2>
+				{
+					props.completed.map(function(item, index) {
+						return <li key={ index }  className="list-item completed">
+							{ item }
+						</li>
+					})
+				}
+			</ul>
 			<ul className="item-list">
+			<h2>To do's</h2>
 			{
 				props.items.map(function(item, index) {
 					return <li key={ index }  className="list-item">
@@ -19,17 +30,6 @@ const Item = (props) => {
 				})
 			}
 			</ul>
-			<p className="count">There are { props.items.length } items on your todo-list. </p>
-			<ul className="item-list">
-			{
-				props.completed.map(function(item, index) {
-					return <li key={ index }  className="list-item completed">
-						{ item }
-					</li>
-				})
-			}
-			</ul>
-			<p className="count">You have completed { props.completed.length } items of your todo-list. </p>
 		</div>
 
 	)
