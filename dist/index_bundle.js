@@ -25991,6 +25991,10 @@
 
 	var _firebase2 = _interopRequireDefault(_firebase);
 
+	var _firebase3 = __webpack_require__(237);
+
+	var _firebase4 = _interopRequireDefault(_firebase3);
+
 	var _Prompt = __webpack_require__(235);
 
 	var _Prompt2 = _interopRequireDefault(_Prompt);
@@ -26007,14 +26011,7 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	// Initialize Firebase
-	var config = {
-	  apiKey: "AIzaSyBfIJg8qA1vDp4uy_3Ox_Qh0X4TBborsN0",
-	  authDomain: "my-first-project-284fb.firebaseapp.com",
-	  databaseURL: "https://my-first-project-284fb.firebaseio.com",
-	  storageBucket: "my-first-project-284fb.appspot.com"
-	};
-	_firebase2.default.initializeApp(config);
+	_firebase2.default.initializeApp(_firebase4.default);
 	var db = [];
 	_firebase2.default.database().ref('todos/').on("child_added", function (snapshot) {
 	  db.push(snapshot.val());
@@ -26812,6 +26809,25 @@
 	};
 
 	exports.default = Item;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	// Initialize Firebase
+	var config = {
+	  apiKey: "AIzaSyBfIJg8qA1vDp4uy_3Ox_Qh0X4TBborsN0",
+	  authDomain: "my-first-project-284fb.firebaseapp.com",
+	  databaseURL: "https://my-first-project-284fb.firebaseio.com",
+	  storageBucket: "my-first-project-284fb.appspot.com"
+	};
+
+	exports.default = config;
 
 /***/ }
 /******/ ]);
